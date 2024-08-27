@@ -18,4 +18,4 @@ def get_all_users(request):
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
     
-    return Response(status = status.HTTP_404_NOT_FOUND
+    return Response(status = status.HTTP_404_NOT_FOUND)
