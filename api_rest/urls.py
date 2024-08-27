@@ -5,5 +5,6 @@ from .import views
 
 urlpatterns = [
     path('', views.get_all_users, name='all_users'),
-    path('user/<int:id>', views.get_by_id)
+    path('user/<int:id>', views.get_by_id, name='get_user'),
+    path('user/create',views.create_user, name='create_user'),
 ]

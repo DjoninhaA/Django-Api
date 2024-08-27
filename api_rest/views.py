@@ -29,3 +29,15 @@ def get_by_id(request, id):
         return Response(serializer.data)
     except:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['POST'])
+def create_user(request):
+    if request.method == 'POST':
+        new_user = request.data
+
+        serializer = UserSerializer(data=new_user)
+
+        if serializer.is_valid():
+            serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
