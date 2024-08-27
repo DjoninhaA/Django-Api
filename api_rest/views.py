@@ -19,3 +19,13 @@ def get_all_users(request):
         return Response(serializer.data)
     
     return Response(status = status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['GET'])
+def get_by_id(request, id):
+    try:
+        user = User.objects.get(id=id)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
