@@ -66,14 +66,19 @@ def update_user(request, id):
     
     return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-@api_view(['DELETE'])
+@api_view(['GET', 'DELETE'])
 def delete_user(request, id):
-    try: 
-        data = User.objects.get(id=id)
-        data.delete()
-        return Response(status=status.HTTP_200_OK)
-    except:
+    try:
+        user = User.objects.get(id=id)
+    except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
+    if request.method == 'GET':
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
     
+    elif request.method == 'DELETE':
+        user.delete()
+        return Response(status=status.HTTP_200_OK)
+
     
